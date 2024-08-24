@@ -1,12 +1,18 @@
 version: '3'
 services:
   vpronginx:
-    image: visualpath/vpronginx
+    build:
+      context: ../Docker-web
+    image: doublej99/vpronginx
+    container_name: vproweb
     ports:
       - "80:80"
 
   vproapp:
-    image: imranvisualpath/vproappfix
+    build:
+      context: ../Docker-app/multistage
+    image: doublej99/vproapp
+    container_name: vproapp
     ports:
       - "8080:8080"
 
@@ -24,7 +30,10 @@ services:
       - RABBITMQ_DEFAULT_PASS=guest
 
   vprodb:
-    image: imranvisualpath/vprdbfix
+    build:
+      context: ../Docker-db
+    image: doublej99/vprdb
+    container_name: vprodb
     ports:
       - "3306:3306"
     volumes:
